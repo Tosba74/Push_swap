@@ -1,0 +1,7 @@
+./push_swap 5 1 4 2 3
+./push_swap 5 4 1 2 3
+./push_swap 5 4 1 2 3
+./push_swap 5 4 1 2
+./push_swap 5 1 2 3 4
+./push_swap 5 2 3 4 5
+./push_swap 1 2 3 4 5

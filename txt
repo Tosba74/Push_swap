@@ -1,0 +1,39 @@
+Test1 (sa)
+sa
+3
+POS = -1
+POS = 2
+POS = 1
+POS = 1
+OOOOoooohhh
+Test2 (sa - rra)
+sa
+rra
+3
+POS = -1
+POS = -1
+POS = 1
+POS = -2
+POS = 1
+OOOOoooohhh
+Test3 (ra)
+ra
+3
+POS = -2
+POS = 1
+OOOOoooohhh
+Test4 (sa - ra)
+sa
+ra
+3
+POS = 2
+POS = -1
+POS = -2
+POS = -2
+OOOOoooohhh
+Test5 (rra)
+rra
+3
+POS = 1
+POS = -2
+OOOOoooohhh
