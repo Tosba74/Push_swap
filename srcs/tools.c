@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:06:57 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/06 18:44:48 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/09/10 12:05:21 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_sqrt(int nb)
 	if (nb < 0)
 		return (0);
 	sqrt = 1;
-	while (sqrt * sqrt < nb)
+	while (sqrt * sqrt <= nb)
 		sqrt++;
 	return (sqrt);
 }

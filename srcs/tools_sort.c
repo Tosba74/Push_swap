@@ -6,12 +6,32 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/06 10:49:01 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/09/11 15:18:13 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+int	a_is_sort(t_list *lst)
+{
+	int		i;
+	t_list	*cpy;
+
+	i = get_position(&lst);
+	cpy = lst;
+	while (lst)
+	{
+		if (content_cmp(&lst, i) != 0)
+		{
+			lst = cpy;
+			return (1);
+		}
+		i--;
+		lst = (lst)->next;
+	}
+	lst = cpy;
+	return (0);
+}
 /*
 	Verifie le classement en comparant l'index et la position des maillons
 	return 0 si le classement est faux 1 si c est bon

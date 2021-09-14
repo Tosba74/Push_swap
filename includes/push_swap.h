@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 12:52:00 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/06 19:41:36 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/09/13 14:37:38 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ int		ft_sqrt(int nb);
 | ******************   Tools Sort   ********************* |
 | ******************************************************* |
 */
+int		a_is_sort(t_list *lst);
 int		content_cmp(t_list **lst, int cmp);
 int		where_am_i(t_list **lst, int neg);
 int		verif_sort(t_global *g);
 int		get_position(t_list **lst);
 int		lst_is_sort(t_list **lst, int n);
+// int		search_smaller(t_global *g, int *i);
 
 /*
 | ******************************************************* |
@@ -63,6 +65,7 @@ void	sort_five(t_global *g);
 | *********************   Sort   ************************ |
 | ******************************************************* |
 */
+void	choose_sort(t_global *g, int size);
 void	big_sort(t_global *g);
 // void	sort_cent(t_global *g, int neg);
 // void	others_sort(t_global *g);

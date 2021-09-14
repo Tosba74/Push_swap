@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 12:50:31 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/06 20:04:09 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/09/10 21:04:21 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static int	last_verif(t_global *g)
 	return (1);
 }
 
-static void	choose_sort(t_global *g)
+void	choose_sort(t_global *g, int size)
 {
-	if (g->size == 2)
+	if (size == 2)
 		sort_two(g, 1);
-	else if (g->size == 3)
+	else if (size == 3)
 		sort_three(g, 1);
-	else if (g->size <= 5)
+	else if (size <= 5)
 		sort_five(g);
 	else
 		big_sort(g);
@@ -69,7 +69,7 @@ void	push_swap(int ac, char **av)
 	// push_a(&g->a, &g->b, g);
 	// print_list(g);
 	// sort_two(g, -1);
-	choose_sort(g);
+	choose_sort(g, g->size);
 	ft_putstr(g->out);
 	print_list(g);
 	print_array(g->sorted, g->size);

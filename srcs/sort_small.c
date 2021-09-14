@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/06 14:47:55 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/09/11 15:12:15 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	get_position(t_list **lst)
 {
 	t_info	*content;
 
+	if (!(*lst)->content)
+		return (-1);
 	content = (*lst)->content;
 	return (content->pos);
 }
@@ -50,14 +52,12 @@ void	sort_two(t_global *g, int neg)
 	if (neg > 0)
 	{
 		pos = where_am_i(&g->a, neg);
-		dprintf(2, "Pos = %d\n", pos);
 		if (pos < 0)
 			swap_a(&g->a, &g->b, g);
 	}
 	else if (neg < 0)
 	{
 		pos = where_am_i(&g->b, neg);
-		dprintf(2, "Pos = %d\n", pos);
 		if (pos < 0)
 			swap_b(&g->a, &g->b, g);
 	}

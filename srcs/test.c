@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:06:50 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/05 20:22:45 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/09/10 13:07:54 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ void	print_list(t_global *g)
 	i = -1;
 	a = g->a;
 	b = g->b;
+	if (!a || !b)
+	{
+		dprintf(2, "%c est Null\n", !a?'A':'B');
+		return ;
+	}
 	dprintf(2, "*--*-----**-----*--*\n");
 	while (++i < g->size)
 	{
