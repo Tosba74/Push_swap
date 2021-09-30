@@ -6,7 +6,7 @@
 #    By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 23:19:50 by bmangin           #+#    #+#              #
-#    Updated: 2021/09/07 15:31:02 by bmangin          ###   ########lyon.fr    #
+#    Updated: 2021/09/28 15:39:13 by bmangin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ LIBFT		= ${addprefix ${PATH_L}/, ${LIBFT_NAME}}
 
 CC			:= clang
 FLAGS		:= -Wall -Wextra -Werror
-CCF			:= ${CC} -glldb ${FLAGS}
+CCF			:= ${CC} ${FLAGS} -glldb
 CFS			:= ${CCF} -fsanitize=address
 INC			:= -I${PATH_I} -I${PATH_L}/${PATH_I}
 FLIB		:= -L${PATH_L}

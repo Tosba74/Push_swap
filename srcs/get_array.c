@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:50:11 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/06 19:52:43 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/09/18 13:27:22 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void	tabstr_to_array(char **av, t_global *g)
 			ft_err("Arg: ", 1);
 		g->array[i] = atoi_ov(av[i]);
 	}
-	// if (ft_check_doublon(g->array, g->size) != 0)
-	// 	ft_err("Arg: ", 7);
+	if (ft_check_doublon(g->array, g->size) != 0)
+		ft_err("Arg: ", 7);
 }
 
 static void	str_to_tab(char *av, t_global *g)

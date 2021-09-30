@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/11 15:18:13 by bmangin          ###   ########lyon.fr   */
+/*   Created: 2021/09/28 15:03:09 by bmangin           #+#    #+#             */
+/*   Updated: 2021/09/28 15:36:50 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,13 @@ int	a_is_sort(t_list *lst)
 			lst = cpy;
 			return (1);
 		}
-		i--;
+		i++;
 		lst = (lst)->next;
 	}
 	lst = cpy;
 	return (0);
 }
-/*
-	Verifie le classement en comparant l'index et la position des maillons
-	return 0 si le classement est faux 1 si c est bon
-*/
+
 int	verif_sort(t_global *g)
 {
 	int		i;
@@ -56,10 +53,6 @@ int	verif_sort(t_global *g)
 	return (1);
 }
 
-/*
-	Compare le premier et le deuxieme element de la pile.
-	return second.pos - first.pos
-*/
 int	where_am_i(t_list **lst, int neg)
 {
 	t_info	*first;
@@ -72,10 +65,6 @@ int	where_am_i(t_list **lst, int neg)
 	return ((second->pos - first->pos) * neg);
 }
 
-/*
-	Verifie que les n maillons soit classe
-	Return 1 si c'est le cas, 0 en cas erreur.
-*/
 int	lst_is_sort(t_list **lst, int n)
 {
 	int		i;

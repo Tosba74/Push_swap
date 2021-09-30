@@ -6,15 +6,12 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/13 14:37:20 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/09/28 15:37:07 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
-	Push dans b les deux plus petit nombre
-*/
 static int	search_smaller(t_global *g, int *i)
 {
 	int		ret;
@@ -24,17 +21,16 @@ static int	search_smaller(t_global *g, int *i)
 	ret = 0;
 	cpy = g->a;
 	tmp = g->size;
-	while (g->a)
+	while (cpy)
 	{
-		if (content_cmp(&g->a, tmp) < 0)
+		if (content_cmp(&cpy, tmp) < 0)
 		{
 			ret = *i;
-			tmp = get_position(&g->a);
+			tmp = get_position(&cpy);
 		}
-		g->a = g->a->next;
+		cpy = cpy->next;
 		(*i)++;
 	}
-	g->a = cpy;
 	return (ret);
 }
 
@@ -45,7 +41,6 @@ static void	push_two_smaller(t_global *g)
 
 	i = 0;
 	pos = search_smaller(g, &i);
-	dprintf(2, "pos = %d || i = %d\n", pos, i);
 	if (pos <= i / 2)
 	{
 		while (pos-- != 0)
@@ -65,7 +60,6 @@ void	sort_five(t_global *g)
 {
 	push_two_smaller(g);
 	push_two_smaller(g);
-	print_list(g);
 	if (ft_lstsize(g->a) == 3)
 		sort_three(g, 1);
 	if (ft_lstsize(g->a) == 2)
