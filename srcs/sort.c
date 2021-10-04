@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/03 21:54:30 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 13:45:45 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ static void	push_chunk_in_b(t_global *g, int nb_chunk, int size)
 		if (imax > size)
 			imax = size - 3;
 		dprintf(2, "Chunk #%02d/%02d imax = %3d\n", index_chunk, nb_chunk, imax);
-		while (i <= imax)
+		while (i < imax)
 		{
 			tmp = find_chunk(g, max_per_chunk);
 			if (tmp == index_chunk)
 			{
-				dprintf(2, "PUSH in C#%d\n", tmp);
+				dprintf(2, "PUSH in C#%d => %d/%d\n", tmp, i, imax);
 				push_b(&g->a, &g->b, g);
 				i++;
 			}
