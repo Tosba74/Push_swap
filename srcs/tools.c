@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:06:57 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/10 12:05:21 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/02 11:43:38 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ static const char	*msg_err(int err)
 	return (tab[err]);
 }
 
-/*
-	La gestion d erreur prends une str pour situer l'erreur
-	Un int correspondant au msg d'erreur
-	Free tout les malloc, puis exit(0)
-*/
 void	ft_err(char *s, int err)
 {
 	ft_putstr_fd("Error:\n", STDERR_FILENO);
@@ -56,9 +51,6 @@ static int	ft_check_ov(long num, int neg, int len)
 	return (num * neg);
 }
 
-/*
-	Atoi avec une gestion d error sur les Overflow
-*/
 int	atoi_ov(const char *str)
 {
 	int		neg;

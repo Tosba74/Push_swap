@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 00:39:48 by bmangin           #+#    #+#             */
-/*   Updated: 2020/12/09 21:27:04 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 18:58:15 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 int	ft_lstsize(t_list *lst)
 {
 	int		count;
+	t_list	*tmp;
 
 	count = 0;
-	if (lst == NULL)
+	tmp = lst;
+	if (tmp == NULL)
 		return (0);
-	while (lst != NULL)
+	while (tmp != NULL)
 	{
-		lst = lst->next;
+		tmp = tmp->next;
 		count++;
 	}
 	return (count);

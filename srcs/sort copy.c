@@ -1,147 +1,206 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort copy.c                                        :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/18 13:03:13 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/03 19:33:53 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	find_next(t_list **lst, int needed, int size)
+static int	search_bigger(t_global *g, int needed, int *i)
 {
-	int		i;
+	int		ret;
 	t_list	*cpy;
 
-	i = -1;
-	cpy = *lst;
-	while (++i <= size)
+	ret = 0;
+	cpy = g->b;
+	while (cpy)
 	{
-		if (get_position(&(*lst)) == needed)
-			return (i);
-		(*lst) = (*lst)->next;
+		if (get_position(&cpy) == needed)
+			ret = *i;
+		cpy = cpy->next;
+		(*i)++;
+	}
+	return (ret);
+}
+
+static void	find_maillon(t_global *g, int needed)
+{
+	int		size;
+	int		pos;
+
+	size = 0;
+	pos = search_bigger(g, needed, &size);
+	if (pos <= size / 2)
+		while (pos-- != 0)
+			rotate_b(&g->a, &g->b, g);
+	else if (pos > size / 2)
+	{
+		size -= pos;
+		while (size-- != 0)
+			rev_rotate_b(&g->a, &g->b, g);
+	}
+}
+
+static void	sort_chunk(t_global *g)
+{
+	int	i;
+
+	i = get_position(&g->a);
+	while (g->b && i >= 0)
+	{
+		find_maillon(g, i);
+		if (get_position(&g->b) == i)
+			push_a(&g->a, &g->b, g);
+		i--;
+	}
+	push_a(&g->a, &g->b, g);
+}
+
+/*
+void	put_number_on_the_top(t_global *g, int pos, int size)
+{
+	if (pos < (size + 1) / 2)
+		while (pos-- > 0)
+			rotate_a(&g->a, &g->b, g);
+	else
+	{
+		pos = size - pos;
+		while (pos-- > 0)
+			rev_rotate_a(&g->a, &g->b, g);
+	}
+	push_b(&g->a, &g->b, g);
+}
+
+void	push_in_chunk(t_global *g, int bound_min, int bound_max)
+{
+	int		pos;
+	int		size;
+	t_list	*tmp;
+
+	tmp = g->a;
+	size = ft_lstsize(g->a);
+	pos = 0;
+	while (tmp)
+	{
+		if ((int)tmp->content >= bound_min && (int)tmp->content <= bound_max)
+		{
+			put_number_on_the_top(g, pos, size);
+			tmp = g->a;
+			pos = -1;
+		}
+		else
+			tmp = tmp->next;
+		pos++;
+	}
+}
+static void	complet_chunks(t_global *g, int **tab, int nb_chunk)
+{
+	int	bound_min_i;
+	int	bound_max_i;
+	int	i;
+	int	size;
+
+	i = 0;
+	size = ft_lstsize(g->a);
+	bound_max_i = 0;
+	bound_min_i = 0;
+	while (i != nb_chunk)
+	{
+		bound_min_i = size / nb_chunk * i;
+		if (i != 0)
+			bound_min_i++;
+		if (i == nb_chunk - 1)
+			bound_max_i = size - 1;
+		else
+			bound_max_i = size / nb_chunk * (i + 1);
+		push_in_chunk(g, *tab[bound_min_i], *tab[bound_max_i]);
 		i++;
 	}
-	*lst = cpy;
-	return (-1);
 }
-	i = 0;
-	pos = search_smaller(g, &i);
-	// dprintf(2, "pos = %d || i = %d\n", pos, i);
-static void	push_smaller(t_global *g)
-{
-	int	i;
-	int	pos;
+*/
 
-	i = 0;
-	pos = search_smaller(g, &i);
-	// dprintf(2, "pos = %d || i = %d\n", pos, i);
-	if (pos <= i / 2)
-	{
-		while (pos-- != 0)
-			rotate_a(&g->a, &g->b, g);
-		push_b(&g->a, &g->b, g);
-	}
-	else if (pos > i / 2)
-	{
-		i -= pos;
-		while (pos-- != 0)
-			rev_rotate_a(&g->a, &g->b, g);
-		push_b(&g->a, &g->b, g);
-	}
-}
-
-void	rebuild_chunk(t_global *g, int mpc, int chunk, int *i)
-{
-	int	ret;
-	int	min;
-	int	max;
-
-
-	ret = 0;
-	if (*i == g->size - 1)
-		min = g->size % chunk;
-	else
-		min = mpc;
-	max = g->size - min;
-	while (*i != max && *i != 0)
-	{
-		while (get_position(&g->b) == *i)
-		{
-			push_a(&g->a, &g->b, g);
-			(*i)--;
-			// dprintf(2, "PUSH_A = %d next = %d\n", *i + 1, *i);
-		}
-		i = 0;
-		pos = search_smaller(g, &i);
-		// dprintf(2, "pos = %d || i = %d\n", pos, i);
-		// ret = find_next(&g->b, *i, min);
-		// dprintf(2, "find_next ret = %d\n", ret);
-		// if (ret < 0)
-			// while (get_position(&g->b) != *i)
-				// rev_rotate_b(&g->a, &g->b, g);
-		// else
-			// while (ret-- != 0)
-				// rotate_b(&g->a, &g->b, g);
-	}
-}
-
-void	sort_chunk(t_global *g, int nb_chunk)
-{
-	int	i;
-	int	max_per_chunk;
-
-	i = g->size - 1;
-	max_per_chunk = (g->size) / nb_chunk;
-	dprintf(2, "OOOOoooohhh\n");
-	while (nb_chunk-- > 0)
-	{	
-		dprintf(2, "Chunk#%d => Max=%d | i => %d\n", nb_chunk, max_per_chunk, i);
-		print_list(g);
-		rebuild_chunk(g, max_per_chunk, nb_chunk, &i);
-	}
-}
-
-static void	complet_chunks(t_global *g, int nb_chunk)
+static void	complet_chunks(t_global *g, int nb_chunk, int size)
 {
 	int		i;
 	int		index_chunk;
 	int		max_per_chunk;
+	int		max_chunk;
+	int		num;
 
 	i = 0;
-	index_chunk = 0;
-	max_per_chunk = (g->size) / nb_chunk;
-	while (index_chunk++ < nb_chunk)
+	index_chunk = 1;
+	max_per_chunk = size / nb_chunk;
+	dprintf(2, "List de %d elements soit:\n%d Chunk de %d, et un dernier de %d\n",
+		size, nb_chunk, max_per_chunk, size - max_per_chunk * (nb_chunk));
+	while (index_chunk <= nb_chunk + 1)
 	{
-		while ((i < (index_chunk * max_per_chunk) && i < g->size) || !a_is_sort(g->a))
+		max_chunk = max_per_chunk * index_chunk;
+		if (max_chunk > size)
+			max_chunk = size - 3;
+		dprintf(2, "#%d Chunks max = %d\n", index_chunk, max_chunk);
+		while ((i <= max_chunk && i < size - 3) || !a_is_sort(g->a))
 		{
-			dprintf(2, "%d < %d\n", i, (index_chunk * max_per_chunk));
-			if (content_cmp(&g->a, (index_chunk * max_per_chunk)) < 0)
+			num = get_position(&g->a);
+			dprintf(2, "num = %3d\n", num);
+			if (num > max_chunk)
 			{
-				push_b(&g->a, &g->b, g);
-				i++;
+				dprintf(2, "num = %3d || ra\n", num);
+				rotate_a(&g->a, &g->b, g);
 			}
 			else
 			{
-				rotate_a(&g->a, &g->b, g);
+				dprintf(2, "num = %3d || pb\n", num);
+				push_b(&g->a, &g->b, g);
+				i++;
 			}
 		}
+		index_chunk++;
 	}
-	choose_sort(g, g->size - i);
+	choose_sort(g, 5);
 }
+
+// static void	complet_chunks(t_global *g, int nb_chunk)
+// {
+	// int		i;
+	// int		index_chunk;
+	// int		max_per_chunk;
+// 
+	// i = 0;
+	// index_chunk = 0;
+	// max_per_chunk = g->size / nb_chunk;
+	// while (index_chunk++ != nb_chunk)
+	// {
+		// while ((i <= (index_chunk * max_per_chunk) && i < g->size - 3)
+			// || !a_is_sort(g->a))
+		// {
+			// if (content_cmp(&g->a, (index_chunk * max_per_chunk)) <= 0)
+			// {
+				// push_b(&g->a, &g->b, g);
+				// i++;
+			// }
+			// else
+				// rotate_a(&g->a, &g->b, g);
+		// }
+	// }
+	// if (a_is_sort(g->a))
+		// sort_five(g);
+// }
 
 void	big_sort(t_global *g)
 {
 	int	nb_chunk;
+	int	size;
 
 	nb_chunk = (int)(ft_sqrt(g->size) / 1.6);
-	dprintf(2, "size => %d | nb => %d\n", g->size, nb_chunk);
-	complet_chunks(g, nb_chunk);
-	print_list(g);
-	sort_chunk(g, nb_chunk);
-	print_list(g);
+	size = ft_lstsize(g->a);
+	if (verif_sort(g))
+		return ;
+	complet_chunks(g, nb_chunk, size);
+	sort_chunk(g);
 }
