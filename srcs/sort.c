@@ -6,25 +6,59 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/04 13:45:45 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 18:07:15 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
 static int	search_bigger(t_global *g, int needed, int *i)
 {
+	int		ret;
+	t_list	*cpy;
+
+	ret = 0;
+	cpy = g->b;
+	while (cpy)
+	{
+		if (get_position(&cpy) == needed)
+			ret = *i;
+		cpy = cpy->next;
+		(*i)++;
+	}
+	return (ret);
 }
 
 static void	find_maillon(t_global *g, int needed)
 {
+	int		size;
+	int		pos;
+
+	size = 0;
+	pos = search_bigger(g, needed, &size);
+	if (pos <= size / 2)
+		while (pos-- != 0)
+			rotate_b(&g->a, &g->b, g);
+	else if (pos > size / 2)
+	{
+		size -= pos;
+		while (size-- != 0)
+			rev_rotate_b(&g->a, &g->b, g);
+	}
 }
 
 static void	sort_chunk(t_global *g)
 {
+	int		wanted;
+
+	wanted = get_position(&g->a);
+	while (--wanted != 0)
+	{
+		find_maillon(g, wanted);
+		push_a(&g->a, &g->b, g);
+	}
 }
-*/
+
 static int	find_chunk(t_global *g, int max_per_chunk)
 {
 	t_info	*content;
@@ -55,17 +89,19 @@ static void	push_chunk_in_b(t_global *g, int nb_chunk, int size)
 			tmp = find_chunk(g, max_per_chunk);
 			if (tmp == index_chunk)
 			{
-				dprintf(2, "PUSH in C#%d => %d/%d\n", tmp, i, imax);
+				dprintf(2, "PUSH in C#%d => %d/%d(%d)\n",
+					tmp, i, imax, get_position(&g->a));
 				push_b(&g->a, &g->b, g);
 				i++;
 			}
 			else
 			{
-				dprintf(2, "REV :/ %d\n", tmp);
+				dprintf(2, "REV :/ %d(%d)\n", tmp, get_position(&g->a));
 				rev_rotate_a(&g->a, &g->b, g);
 			}
 		}
 	}
+	choose_sort(g, ft_lstsize(g->a));
 }
 
 void	big_sort(t_global *g)
@@ -78,5 +114,7 @@ void	big_sort(t_global *g)
 	if (verif_sort(g))
 		return ;
 	push_chunk_in_b(g, nb_chunk, size);
-	// sort_chunk(g);
+	print_list(g);
+	sort_chunk(g);
+	print_list(g);
 }
