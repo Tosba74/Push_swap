@@ -6,7 +6,11 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2021/10/04 21:34:26 by bmangin          ###   ########lyon.fr   */
+=======
+/*   Updated: 2021/10/05 13:08:15 by bmangin          ###   ########lyon.fr   */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +105,13 @@ static void	push_chunk_in_b(t_global *g, int nb_chunk, int size)
 			}
 		}
 	}
+<<<<<<< Updated upstream
 	// choose_sort(g, ft_lstsize(g->a));
 	sort_five(g);
+=======
+	sort_five(g);
+	// choose_sort(g, ft_lstsize(g->a));
+>>>>>>> Stashed changes
 }
 
 void	big_sort(t_global *g)
