@@ -6,12 +6,13 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/05 15:11:08 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 19:34:32 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
 static int	search_bigger(t_global *g, int needed, int *i)
 {
 	int		ret;
@@ -105,7 +106,123 @@ static void	push_chunk_in_b(t_global *g, int nb_chunk, int size)
 	}
 	sort_five(g);
 }
+*/
 
+void	put_number_on_the_top(t_global *g, int pos, int size)
+{
+	if (pos < (size + 1) / 2)
+		while (pos-- > 0)
+			rotate_a(&g->a, &g->b, g);
+	else
+	{
+		pos = size - pos;
+		while (pos-- > 0)
+			rev_rotate_a(&g->a, &g->b, g);
+	}
+	push_b(&g->a, &g->b, g);
+}
+
+void	push_between_bounds(t_global *g, int bound_min, int bound_max)
+{
+	int		pos;
+	int		size;
+	t_list	*tmp;
+
+	tmp = g->a;
+	size = ft_lstsize(g->a);
+	pos = 0;
+	while (tmp)
+	{
+		if ((int)tmp->content >= bound_min && (int)tmp->content <= bound_max)
+		{
+			put_number_on_the_top(g, pos, size);
+			tmp = g->a;
+			pos = -1;
+		}
+		else
+			tmp = tmp->next;
+		pos++;
+	}
+}
+
+int	ft_maximum_number(t_list *b)
+{
+	int	max;
+	int	index;
+	int	index_r;
+
+	index = 0;
+	index_r = 0;
+	max = (int)b->content;
+	b = b->next;
+	index++;
+	while (b)
+	{
+		if ((int)b->content > max)
+		{
+			index_r = index;
+			max = (int)b->content;
+		}
+		index++;
+		b = b->next;
+	}
+	return (index_r);
+}
+
+void	push_on_stack_b(t_global *g, int *tab, int size)
+{
+	int	number_bounds;
+	int	bound_min_i;
+	int	bound_max_i;
+	int	i;
+
+	i = 0;
+	bound_max_i = 0;
+	bound_min_i = 0;
+	number_bounds = ft_sqrt(g->size) / 1.5;
+	while (i != number_bounds)
+	{
+		bound_min_i = size / number_bounds * i;
+		if (i != 0)
+			bound_min_i++;
+		if (i == number_bounds - 1)
+			bound_max_i = size - 1;
+		else
+			bound_max_i = size / number_bounds * (i + 1);
+		push_between_bounds(g, tab[bound_min_i], tab[bound_max_i]);
+		i++;
+	}
+}
+
+void	push_max_a(t_global *g)
+{
+	int	max_pos;
+	int	lstsize;
+
+	lstsize = ft_lstsize(g->b);
+	max_pos = ft_maximum_number(g->b);
+	if (max_pos > (lstsize + 1) / 2)
+		while (max_pos++ != lstsize)
+			rev_rotate_b(&g->a, &g->b, g);
+	else
+		while (max_pos--)
+			rotate_b(&g->a, &g->b, g);
+	push_a(&g->a, &g->b, g);
+}
+
+void	big_sort(t_global *g)
+{
+	int	size;
+
+	size = ft_lstsize(g->a);
+	if (!a_is_sort(g->a))
+		return ;
+	push_on_stack_b(g, g->sorted, size);
+	while (g->b)
+		push_max_a(g);
+}
+
+/*
 void	big_sort(t_global *g)
 {
 	int	nb_chunk;
@@ -119,3 +236,4 @@ void	big_sort(t_global *g)
 	sort_chunk(g);
 	// print_list(g);
 }
+*/

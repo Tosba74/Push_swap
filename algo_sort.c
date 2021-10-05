@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alafranc <alafranc@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/20 13:49:38 by alafranc          #+#    #+#             */
-/*   Updated: 2021/04/21 15:38:37 by alafranc         ###   ########lyon.fr   */
+/*   Created: 2021/10/05 19:35:40 by bmangin           #+#    #+#             */
+/*   Updated: 2021/10/05 19:35:45 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
