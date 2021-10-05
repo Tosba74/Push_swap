@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:06:50 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/30 20:10:38 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 21:37:36 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	print_maillon(t_list *a, t_list *b)
 	t_info	*con_b;
 
 	con = &(t_info){0};
-	if (!a->content)
+	if (!a || !a->content)
 		con_a = con;
 	else
 		con_a = a->content;
-	if (!b->content)
+	if (!b || !b->content)
 		con_b = con;
 	else
 		con_b = b->content;
@@ -45,11 +45,11 @@ void	print_list(t_global *g)
 		dprintf(2, "%c est Null\n", 'A');
 		return ;
 	}
-	if (!b)
-	{
-		dprintf(2, "%c est Null\n", 'B');
-		return ;
-	}
+	// if (!b)
+	// {
+	// 	dprintf(2, "%c est Null\n", 'B');
+	// 	return ;
+	// }
 	while (++i < g->size)
 	{
 		print_maillon(a, b);

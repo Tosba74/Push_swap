@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/04 18:07:15 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/04 21:34:26 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	find_maillon(t_global *g, int needed)
 		while (size-- != 0)
 			rev_rotate_b(&g->a, &g->b, g);
 	}
+	push_a(&g->a, &g->b, g);
 }
 
 static void	sort_chunk(t_global *g)
@@ -55,7 +56,6 @@ static void	sort_chunk(t_global *g)
 	while (--wanted != 0)
 	{
 		find_maillon(g, wanted);
-		push_a(&g->a, &g->b, g);
 	}
 }
 
@@ -83,25 +83,26 @@ static void	push_chunk_in_b(t_global *g, int nb_chunk, int size)
 		imax = index_chunk * max_per_chunk;
 		if (imax > size)
 			imax = size - 3;
-		dprintf(2, "Chunk #%02d/%02d imax = %3d\n", index_chunk, nb_chunk, imax);
+		// dprintf(2, "Chunk #%02d/%02d imax = %3d\n", index_chunk, nb_chunk, imax);
 		while (i < imax)
 		{
 			tmp = find_chunk(g, max_per_chunk);
 			if (tmp == index_chunk)
 			{
-				dprintf(2, "PUSH in C#%d => %d/%d(%d)\n",
-					tmp, i, imax, get_position(&g->a));
+				// dprintf(2, "PUSH in C#%d => %d/%d(%d)\n",
+				// 	tmp, i, imax, get_position(&g->a));
 				push_b(&g->a, &g->b, g);
 				i++;
 			}
 			else
 			{
-				dprintf(2, "REV :/ %d(%d)\n", tmp, get_position(&g->a));
+				// dprintf(2, "REV :/ %d(%d)\n", tmp, get_position(&g->a));
 				rev_rotate_a(&g->a, &g->b, g);
 			}
 		}
 	}
-	choose_sort(g, ft_lstsize(g->a));
+	// choose_sort(g, ft_lstsize(g->a));
+	sort_five(g);
 }
 
 void	big_sort(t_global *g)
@@ -114,7 +115,7 @@ void	big_sort(t_global *g)
 	if (verif_sort(g))
 		return ;
 	push_chunk_in_b(g, nb_chunk, size);
-	print_list(g);
+	// print_list(g);
 	sort_chunk(g);
-	print_list(g);
+	// print_list(g);
 }
