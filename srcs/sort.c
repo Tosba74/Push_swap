@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/05 14:54:43 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 15:11:08 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	find_maillon(t_global *g, int needed)
 		while (size-- != 0)
 			rev_rotate_b(&g->a, &g->b, g);
 	}
-	push_a(&g->a, &g->b, g);
 }
 
 static void	sort_chunk(t_global *g)
@@ -58,6 +57,7 @@ static void	sort_chunk(t_global *g)
 	{
 		printf("wanted == %d\n", wanted);
 		find_maillon(g, wanted);
+		push_a(&g->a, &g->b, g);
 	}
 }
 
@@ -111,7 +111,7 @@ void	big_sort(t_global *g)
 	int	nb_chunk;
 	int	size;
 
-	nb_chunk = (int)(ft_sqrt(g->size) / 1.6);
+	nb_chunk = (int)(ft_sqrt(g->size) * 1.6);
 	size = ft_lstsize(g->a);
 	if (verif_sort(g))
 		return ;
