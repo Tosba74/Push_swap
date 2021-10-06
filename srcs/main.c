@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 12:50:31 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/05 14:18:58 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 15:45:20 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	push_swap(int ac, char **av)
 	// if (!verif_sort(g))
 	// 	ft_err("Bad news: ", 8);
 	ft_putstr(g->out);
-	// print_list(g);
+	print_list(g);
 }
 
 int	main(int ac, char **av)

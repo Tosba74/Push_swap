@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/28 15:37:07 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 19:11:18 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	push_two_smaller(t_global *g)
 
 	i = 0;
 	pos = search_smaller(g, &i);
+	printf("size == %d pos == %d\n", i, pos);
 	if (pos <= i / 2)
 	{
 		while (pos-- != 0)
@@ -60,10 +61,12 @@ void	sort_five(t_global *g)
 {
 	push_two_smaller(g);
 	push_two_smaller(g);
+	print_list(g);
 	if (ft_lstsize(g->a) == 3)
 		sort_three(g, 1);
 	if (ft_lstsize(g->a) == 2)
 		sort_two(g, 1);
+	print_list(g);
 	push_a(&g->a, &g->b, g);
 	push_a(&g->a, &g->b, g);
 }

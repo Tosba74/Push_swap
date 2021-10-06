@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:06:50 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/04 21:37:36 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 19:05:44 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	print_list(t_global *g)
 	int		i;
 	t_list	*a;
 	t_list	*b;
+	t_list	*buf;
 
 	i = -1;
 	a = g->a;
@@ -50,13 +51,37 @@ void	print_list(t_global *g)
 	// 	dprintf(2, "%c est Null\n", 'B');
 	// 	return ;
 	// }
-	while (++i < g->size)
+	// while (a)
+	// {
+	// 	print_maillon(a, b);
+	// 	if (a->next)
+	// 		a = a->next;
+	// 	if (b->next)
+	// 		b = b->next;
+	// }
+	buf = g->a;
+	while (buf)
 	{
-		print_maillon(a, b);
-		if (a->next)
-			a = a->next;
-		if (b->next)
-			b = b->next;
+		if (buf->content)
+		{
+			dprintf(STDOUT_FILENO, "\033[32ma>nb\033[0m\033[34m%3d \033[0m\033[32m||\033[0m\033[34m%3d\033[0m\033[32m pos<a\033[0m\n",
+				((t_info *)(buf->content))->nb, ((t_info *)(buf->content))->pos);
+			buf = buf->next;
+		}
+		else
+			break ;
+	}
+	buf = g->b;
+	while (buf)
+	{
+		if (buf->content)
+		{
+			dprintf(STDOUT_FILENO, "\033[31ma>nb\033[0m\033[33m%3d \033[0m\033[31m||\033[0m\033[33m%3d\033[0m\033[31m pos<a\033[0m\n",
+				((t_info *)(buf->content))->nb, ((t_info *)(buf->content))->pos);
+			buf = buf->next;
+		}
+		else
+			break ;
 	}
 }
 
