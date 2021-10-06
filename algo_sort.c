@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 19:35:40 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/05 19:35:45 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 14:10:18 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	put_number_on_the_top(t_list **a, t_list **b, int pos, int size)
 	push_b(a, b, 1);
 }
 
-void	push_between_bounds(t_list **a, t_list **b,
-							int bound_min, int bound_max)
+void	push_between_chunks(t_list **a, t_list **b,
+							int chunk_min, int chunk_max)
 {
 	int		pos;
 	int		size;
@@ -38,7 +38,7 @@ void	push_between_bounds(t_list **a, t_list **b,
 	pos = 0;
 	while (tmp)
 	{
-		if ((int)tmp->content >= bound_min && (int)tmp->content <= bound_max)
+		if ((int)tmp->content >= chunk_min && (int)tmp->content <= chunk_max)
 		{
 			put_number_on_the_top(a, b, pos, size);
 			tmp = *a;
@@ -68,25 +68,25 @@ void	push_max_a(t_list **a, t_list **b)
 
 void	push_on_stack_b(t_list **a, t_list **b, int *tab, int size)
 {
-	int	number_bounds;
-	int	bound_min_i;
-	int	bound_max_i;
+	int	number_chunks;
+	int	chunk_min_i;
+	int	chunk_max_i;
 	int	i;
 
 	i = 0;
-	bound_max_i = 0;
-	bound_min_i = 0;
-	number_bounds = ft_sqrt_int(size) / 1.5;
-	while (i != number_bounds)
+	chunk_max_i = 0;
+	chunk_min_i = 0;
+	number_chunks = ft_sqrt_int(size) / 1.5;
+	while (i != number_chunks)
 	{
-		bound_min_i = size / number_bounds * i;
+		chunk_min_i = size / number_chunks * i;
 		if (i != 0)
-			bound_min_i++;
-		if (i == number_bounds - 1)
-			bound_max_i = size - 1;
+			chunk_min_i++;
+		if (i == number_chunks - 1)
+			chunk_max_i = size - 1;
 		else
-			bound_max_i = size / number_bounds * (i + 1);
-		push_between_bounds(a, b, tab[bound_min_i], tab[bound_max_i]);
+			chunk_max_i = size / number_chunks * (i + 1);
+		push_between_chunks(a, b, tab[chunk_min_i], tab[chunk_max_i]);
 		i++;
 	}
 }

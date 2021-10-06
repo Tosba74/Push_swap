@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
+/*   sort copy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/03 19:33:53 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 14:10:18 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	put_number_on_the_top(t_global *g, int pos, int size)
 	push_b(&g->a, &g->b, g);
 }
 
-void	push_in_chunk(t_global *g, int bound_min, int bound_max)
+void	push_in_chunk(t_global *g, int chunk_min, int chunk_max)
 {
 	int		pos;
 	int		size;
@@ -88,7 +88,7 @@ void	push_in_chunk(t_global *g, int bound_min, int bound_max)
 	pos = 0;
 	while (tmp)
 	{
-		if ((int)tmp->content >= bound_min && (int)tmp->content <= bound_max)
+		if ((int)tmp->content >= chunk_min && (int)tmp->content <= chunk_max)
 		{
 			put_number_on_the_top(g, pos, size);
 			tmp = g->a;
@@ -101,25 +101,25 @@ void	push_in_chunk(t_global *g, int bound_min, int bound_max)
 }
 static void	complet_chunks(t_global *g, int **tab, int nb_chunk)
 {
-	int	bound_min_i;
-	int	bound_max_i;
+	int	chunk_min_i;
+	int	chunk_max_i;
 	int	i;
 	int	size;
 
 	i = 0;
 	size = ft_lstsize(g->a);
-	bound_max_i = 0;
-	bound_min_i = 0;
+	chunk_max_i = 0;
+	chunk_min_i = 0;
 	while (i != nb_chunk)
 	{
-		bound_min_i = size / nb_chunk * i;
+		chunk_min_i = size / nb_chunk * i;
 		if (i != 0)
-			bound_min_i++;
+			chunk_min_i++;
 		if (i == nb_chunk - 1)
-			bound_max_i = size - 1;
+			chunk_max_i = size - 1;
 		else
-			bound_max_i = size / nb_chunk * (i + 1);
-		push_in_chunk(g, *tab[bound_min_i], *tab[bound_max_i]);
+			chunk_max_i = size / nb_chunk * (i + 1);
+		push_in_chunk(g, *tab[chunk_min_i], *tab[chunk_max_i]);
 		i++;
 	}
 }
