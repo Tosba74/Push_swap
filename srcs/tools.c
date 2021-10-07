@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:06:57 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/02 11:43:38 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 12:06:56 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static const char	*msg_err(int err)
 	"Already Sort\n",
 	"Make sure yours arguments aren't same\n",
 	"I can't help you =( Bro!\n",
+	"Too big\n",
 	"AH BAH DACCORD !!!\n"
 	};
 

@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 12:52:00 by bmangin           #+#    #+#             */
-/*   Updated: 2021/08/25 23:02:23 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 10:08:46 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ void	rev_rotate_list(t_list **lst);
 | ******************************************************* |
 */
 
-void	swap_a(t_list **a, t_list **b, t_global *g);
-void	swap_b(t_list **a, t_list **b, t_global *g);
-void	swap_s(t_list **a, t_list **b, t_global *g);
-void	push_a(t_list **a, t_list **b, t_global *g);
-void	push_b(t_list **a, t_list **b, t_global *g);
-void	rotate_a(t_list **a, t_list **b, t_global *g);
-void	rotate_b(t_list **a, t_list **b, t_global *g);
-void	rotate_r(t_list **a, t_list **b, t_global *g);
-void	rev_rotate_a(t_list **a, t_list **b, t_global *g);
-void	rev_rotate_b(t_list **a, t_list **b, t_global *g);
-void	rev_rotate_r(t_list **a, t_list **b, t_global *g);
+void	swap_a(t_global *g);
+void	swap_b(t_global *g);
+void	swap_s(t_global *g);
+void	push_a(t_global *g);
+void	push_b(t_global *g);
+void	rotate_a(t_global *g);
+void	rotate_b(t_global *g);
+void	rotate_r(t_global *g);
+void	rev_rotate_a(t_global *g);
+void	rev_rotate_b(t_global *g);
+void	rev_rotate_r(t_global *g);
 
 #endif
 

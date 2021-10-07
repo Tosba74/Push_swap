@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 12:50:31 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/05 14:18:58 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 12:07:25 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,17 @@
 
 void	choose_sort(t_global *g, int size)
 {
+	printf("Choose: %d\n", size);
 	if (size == 2)
 		sort_two(g, 1);
 	else if (size == 3)
 		sort_three(g, 1);
 	else if (size <= 5)
 		sort_five(g);
-	else
+	else if (size > 5)
 		big_sort(g);
+	else if (size > 500)
+		ft_err("Size: ", 9);
 }
 
 void	push_swap(int ac, char **av)
@@ -52,7 +55,7 @@ void	push_swap(int ac, char **av)
 	// if (!verif_sort(g))
 	// 	ft_err("Bad news: ", 8);
 	ft_putstr(g->out);
-	// print_list(g);
+	print_list(g);
 }
 
 int	main(int ac, char **av)

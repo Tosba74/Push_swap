@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/11 15:12:15 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 10:11:59 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	sort_two(t_global *g, int neg)
 	{
 		pos = where_am_i(&g->a, neg);
 		if (pos < 0)
-			swap_a(&g->a, &g->b, g);
+			swap_a(g);
 	}
 	else if (neg < 0)
 	{
 		pos = where_am_i(&g->b, neg);
 		if (pos < 0)
-			swap_b(&g->a, &g->b, g);
+			swap_b(g);
 	}
 }
 
@@ -77,18 +77,18 @@ void	sort_three(t_global *g, int neg)
 	if (!lst_is_sort(&g->a, 3))
 	{
 		if (first > 0 && second < 0 && first < second * -1)
-			rev_rotate_a(&g->a, &g->b, g);
+			rev_rotate_a(g);
 		else if (first < 0 && second > 0 && first * -1 > second)
-			rotate_a(&g->a, &g->b, g);
+			rotate_a(g);
 		else
 		{
-			swap_a(&g->a, &g->b, g);
+			swap_a(g);
 			if (!lst_is_sort(&g->a, 3))
 			{
 				if (where_am_i(&g->a, neg) < 0)
-					rotate_a(&g->a, &g->b, g);
+					rotate_a(g);
 				else
-					rev_rotate_a(&g->a, &g->b, g);
+					rev_rotate_a(g);
 			}
 		}
 	}
