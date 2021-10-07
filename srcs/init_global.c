@@ -6,23 +6,23 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 00:45:31 by bmangin           #+#    #+#             */
-/*   Updated: 2021/09/06 18:41:29 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:56:05 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	is_already_sort(t_global *g)
-{
-	int		i;
+// static int	is_already_sort(t_global *g)
+// {
+// 	int		i;
 
-	i = 0;
-	while (g->array[i] == g->sorted[i] && i < g->size)
-		i++;
-	if (g->array[i] != g->sorted[i])
-		return (1);
-	return (0);
-}
+// 	i = 0;
+// 	while (g->array[i] == g->sorted[i] && i < g->size)
+// 		i++;
+// 	if (g->array[i] != g->sorted[i])
+// 		return (1);
+// 	return (0);
+// }
 
 static int	find_index_sort(int *array, int needed)
 {
@@ -72,6 +72,8 @@ void	init_global(int ac, char **av, t_global *g)
 	get_array(ac, av, g);
 	if (!g->array)
 		ft_err("PushSwap: ", 3);
+	g->coup = 0;
+	g->vizualizer = 1;
 	if (0 < g->size)
 	{
 		g->sorted = (int *)wrmalloc(sizeof(int) * g->size - 1);
@@ -79,8 +81,6 @@ void	init_global(int ac, char **av, t_global *g)
 		while (++i < g->size)
 			g->sorted[i] = g->array[i];
 		ft_bubble_sort(g->sorted, g->size);
-		if (!is_already_sort(g))
-			ft_err("Sort: ", 6);
 		init_maillon(g);
 	}
 	else

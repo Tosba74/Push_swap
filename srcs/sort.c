@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 12:10:42 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/08 01:58:25 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,62 +54,13 @@ static void	sort_chunk(t_global *g)
 	int		wanted;
 
 	wanted = get_position(&g->a);
-	while (--wanted != 0)
+	while (g->b)
 	{
 		// printf("wanted == %d\n", wanted);
-		find_maillon(g, wanted);
+		find_maillon(g, --wanted);
 	}
+	// push_a(g);
 }
-
-static int	find_chunk(t_global *g, int max_per_chunk)
-{
-	t_info	*content;
-
-	if (!g->a->content)
-		return (-1);
-	content = g->a->content;
-	return ((content->pos / max_per_chunk) + 1);
-}
-
-// static void	push_chunk_in_b(t_global *g, int nb_chunk, int size)
-// {
-// 	int		i;
-// 	int		index_chunk;
-// 	int		max_per_chunk;
-// 	int		imax;
-// 	int		tmp;
-
-// 	i = 0;
-// 	index_chunk = 0;
-// 	max_per_chunk = size / nb_chunk;
-// 	while (++index_chunk <= nb_chunk)
-// 	{
-// 		imax = index_chunk * max_per_chunk;
-// 		if (imax > size)
-// 			imax = size - 2;
-// 		// dprintf(2, "Chunk #%02d/%02d imax = %3d\n", index_chunk, nb_chunk, imax);
-// 		while (i < imax)
-// 		{
-// 			// tmp = find_chunk(g, max_per_chunk);
-// 			tmp = get_position(&g->a);
-// 			// if (tmp == index_chunk)
-// 			if (tmp < imax)
-// 			{
-// 				// dprintf(2, "PUSH in C#%d => %d/%d(%d)\n",
-// 					// tmp, i, imax, get_position(&g->a));
-// 				push_b(g);
-// 				i++;
-// 			}
-// 			else
-// 			{
-// 				//dprintf(2, "REV :/ %d(%d)\n", tmp, get_position(&g->a));
-// 				rev_rotate_a(g);
-// 			}
-// 		}
-// 	}
-// 	print_list(g);
-// 	sort_five(g);
-// }
 
 void	push_chunk_in_b(t_global *g, int nb_chunk, int size)
 {
@@ -125,136 +76,25 @@ void	push_chunk_in_b(t_global *g, int nb_chunk, int size)
 	{
 		imax = max_per_chunk * index_chunk;
 		if (imax > size)
-			imax = size - 2;
-		while (i != imax)
+			imax = size - 4;
+		// dprintf(2, "\033[32mChunk#%d for #<%d\n\033[0m", index_chunk, imax);
+		while (i < imax && i < size - 4)
 		{
-			if (find_chunk(g, max_per_chunk) == index_chunk)
+			if (get_position(&g->a) < imax)
 			{
+				// dprintf(2, "%d pb\n", get_position(&g->a));
 				push_b(g);
 				i++;
 			}
 			else
-				rev_rotate_b(g);
+			{
+				// dprintf(2, "%d rra\n",get_position(&g->a));
+				rev_rotate_a(g);
+			}
 		}
 	}
 	sort_five(g);
 }
-/*
-
-void	put_number_on_the_top(t_global *g, int pos, int size)
-{
-	if (pos < (size + 1) / 2)
-		while (pos-- > 0)
-			rotate_a(g);
-	else
-	{
-		pos = size - pos;
-		while (pos-- > 0)
-			rev_rotate_a(g);
-	}
-	push_b(g);
-}
-
-void	push_between_chunks(t_global *g, int chunk_min, int chunk_max)
-{
-	int		pos;
-	int		size;
-	t_list	*tmp;
-
-	tmp = g->a;
-	size = ft_lstsize(g->a);
-	pos = 0;
-	while (tmp)
-	{
-		if ((int)tmp->content >= chunk_min && (int)tmp->content <= chunk_max)
-		{
-			put_number_on_the_top(g, pos, size);
-			tmp = g->a;
-			pos = -1;
-		}
-		else
-			tmp = tmp->next;
-		pos++;
-	}
-}
-
-int	ft_maximum_number(t_list *b)
-{
-	int	max;
-	int	index;
-	int	index_r;
-
-	index = 0;
-	index_r = 0;
-	max = (int)b->content;
-	b = b->next;
-	index++;
-	while (b)
-	{
-		if ((int)b->content > max)
-		{
-			index_r = index;
-			max = (int)b->content;
-		}
-		index++;
-		b = b->next;
-	}
-	return (index_r);
-}
-void	push_on_stack_b(t_global *g, int *tab, int size)
-{
-	int	number_chunks;
-	int	chunk_min_i;
-	int	chunk_max_i;
-	int	i;
-
-	i = 0;
-	chunk_max_i = 0;
-	chunk_min_i = 0;
-	number_chunks = ft_sqrt(g->size) / 1.5;
-	while (i != number_chunks)
-	{
-		chunk_min_i = size / number_chunks * i;
-		if (i != 0)
-			chunk_min_i++;
-		if (i == number_chunks - 1)
-			chunk_max_i = size - 1;
-		else
-			chunk_max_i = size / number_chunks * (i + 1);
-		push_between_chunks(g, tab[chunk_min_i], tab[chunk_max_i]);
-		i++;
-	}
-}
-
-void	push_max_a(t_global *g)
-{
-	int	max_pos;
-	int	lstsize;
-
-	lstsize = ft_lstsize(g->b);
-	max_pos = ft_maximum_number(g->b);
-	if (max_pos > (lstsize + 1) / 2)
-		while (max_pos++ != lstsize)
-			rev_rotate_b(g);
-	else
-		while (max_pos--)
-			rotate_b(g);
-	push_a(g);
-}
-*/
-/*
-void	big_sort(t_global *g)
-{
-	int	size;
-
-	size = ft_lstsize(g->a);
-	if (!a_is_sort(g->a))
-		return ;
-	push_on_stack_b(g, g->sorted, size);
-	while (g->b)
-		push_max_a(g);
-}
-*/
 
 void	big_sort(t_global *g)
 {
@@ -263,9 +103,11 @@ void	big_sort(t_global *g)
 
 	nb_chunk = (int)(ft_sqrt(g->size) / 1.6);
 	size = ft_lstsize(g->a);
+	// dprintf(2, "nb_chunk = %d | size = %d\n", nb_chunk, size);
 	if (verif_sort(g))
 		return ;
 	push_chunk_in_b(g, nb_chunk, size);
-	print_list(g);
+	// print_list(g);
 	sort_chunk(g);
+	// print_list(g);
 }

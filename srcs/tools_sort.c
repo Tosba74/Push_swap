@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 15:03:09 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/02 12:50:28 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 19:24:03 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,14 @@ int	verif_sort(t_global *g)
 {
 	int		i;
 	t_list	*begin;
-	t_info	*content;
 
 	i = -1;
+	if (!g->a)
+		ft_err("Stack A: ", 5);
 	begin = g->a;
-	if (g->b != NULL)
-		return (0);
 	while (++i < g->size)
 	{
-		content = begin->content;
-		if (content->pos != i)
+		if (((t_info *)(begin->content))->pos != i)
 			return (0);
 		begin = begin->next;
 	}

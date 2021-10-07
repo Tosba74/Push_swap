@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 11:38:59 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 10:13:43 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:52:54 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	rev_rotate_a(t_global *g)
 {
 	rev_rotate_list(&g->a);
 	g->out = ft_strjoin_free(g->out, "rra\n", 1);
+	g->coup++;
 }
 
 /*
@@ -30,6 +31,7 @@ void	rev_rotate_b(t_global *g)
 {
 	rev_rotate_list(&g->b);
 	g->out = ft_strjoin_free(g->out, "rrb\n", 1);
+	g->coup++;
 }
 
 /*
@@ -40,4 +42,5 @@ void	rev_rotate_r(t_global *g)
 	rev_rotate_list(&g->a);
 	rev_rotate_list(&g->b);
 	g->out = ft_strjoin_free(g->out, "rrr\n", 1);
+	g->coup++;
 }

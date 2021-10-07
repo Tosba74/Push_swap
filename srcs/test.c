@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:06:50 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 11:47:30 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 23:31:58 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,8 @@ void	print_list(t_global *g)
 		dprintf(2, "%c est Null\n", 'A');
 		return ;
 	}
-	// if (!b)
-	// {
-	// 	dprintf(2, "%c est Null\n", 'B');
-	// 	return ;
-	// }
-	// while (a)
-	// {
-	// 	print_maillon(a, b);
-	// 	if (a->next)
-	// 		a = a->next;
-	// 	if (b->next)
-	// 		b = b->next;
-	// }
 	buf = g->a;
+	dprintf(STDOUT_FILENO, "\033[31m-----\033[0m\n");
 	while (buf)
 	{
 		if (buf->content)
@@ -78,15 +66,16 @@ void	print_list(t_global *g)
 	{
 		if (buf->content)
 		{
-			dprintf(STDOUT_FILENO, "\033[31ma>nb\033[0m\033[33m%5d\033[0m\033[31m|",
+			dprintf(STDOUT_FILENO, "\033[31mb>nb\033[0m\033[33m%5d\033[0m\033[31m|",
 				((t_info *)(buf->content))->nb);
-			dprintf(STDOUT_FILENO, "|\033[0m\033[33m%5d\033[0m\033[31mpos<a\033[0m\n",
+			dprintf(STDOUT_FILENO, "|\033[0m\033[33m%5d\033[0m\033[31mpos<b\033[0m\n",
 				((t_info *)(buf->content))->pos);
 			buf = buf->next;
 		}
 		else
 			break ;
 	}
+	dprintf(STDOUT_FILENO, "\033[31m-----\033[0m\n");
 }
 
 void	print_array(int *array, int n)
@@ -99,16 +88,34 @@ void	print_array(int *array, int n)
 	dprintf(2, "\n");
 }
 
-/*
-int		start_prepare_stacks(t_global *g)
+char	**get_tab(t_list *lst)
+{
+	int		i;
+	t_list	*cpy;
+	char	**tab;
+
+	i = 0;
+	cpy = lst;
+	tab = (char **)wrmalloc(sizeof(char *) * ft_lstsize(cpy) + 1);
+	while (cpy)
+	{
+		tab[i] = ft_itoa(get_position(&cpy));
+		cpy = cpy->next;
+		i++;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
+int	start_prepare_stacks(t_global *g)
 {
 	int	i;
 
 	i = -1;
 	if (!g->vizualizer)
 	{
-		if (g->action)
-			printf("%s\n", g->action);
+		if (g->out)
+			printf("%s\n", g->out);
 		return (-1);
 	}
 	while (++i < 299999999)
@@ -130,19 +137,18 @@ void	print_stacks(t_global *g)
 		return ;
 	while (++i < 9999999)
 	{
-		if (i > len(g->b) && i > len(g->a))
+		if (i > ft_lstsize(g->b) && i > ft_lstsize(g->a))
 			break ;
-		if (i < len(g->a))
-			printf("|\e[92m%7s        \e[0m", g->a[len(g->a) - 1 - i]);
+		if (i < ft_lstsize(g->a))
+			printf("|\e[92m%7s        \e[0m", get_tab(g->a)[ft_lstsize(g->a) - 1 - i]);
 		else
 			printf("|\e[92m%7s        \e[0m", "\0");
-		if (i < len(g->b))
-			printf("|\e[93m%7s        \e[0m|\n", g->b[len(g->b) - 1 - i]);
+		if (i < ft_lstsize(g->b))
+			printf("|\e[93m%7s        \e[0m|\n", get_tab(g->b)[ft_lstsize(g->b) - 1 - i]);
 		else
 			printf("|\e[93m%7s        \e[0m|\n", "\0");
 	}
 	printf("|_______________|_______________|\n");
 	printf("| Coups = \033[0;32m%-6d\e[0m| Action = \033[0;35m%-5s\e[0m|\n",
-		g->coups, g->action);
+		g->coup, g->out);
 }
-*/

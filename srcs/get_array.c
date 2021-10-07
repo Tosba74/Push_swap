@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:50:11 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 10:26:00 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/08 01:50:32 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,12 @@ static void	str_to_tab(char *av, t_global *g)
 	if (!str_is_good(av))
 		ft_err("Arg: ", 1);
 	cheat = ft_split(av, ' ');
-	if (ft_strslen(cheat) < 3)
-		ft_err("Arg: ", 3);
+	// if (ft_strslen(cheat) < 3)
+		// ft_err("Arg: ", 3);
 	tabstr_to_array(cheat, g);
 	wrfree(cheat);
 }
 
-/*
-	Prends les args et complet int *array de la structure global 
-*/
 void	get_array(int ac, char **av, t_global *g)
 {
 	if (ac == 2)

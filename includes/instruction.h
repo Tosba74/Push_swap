@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 12:52:00 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 10:08:46 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 20:52:29 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_global
 	t_list		*a;
 	t_list		*b;
 	int			size;
+	int			vizualizer;
+	int			coup;
 	int			*array;
 	int			*sorted;
 	char		*out;
