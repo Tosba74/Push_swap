@@ -6,15 +6,12 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 12:52:00 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 20:52:29 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/09 21:24:52 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INSTRUCTION_H
 # define INSTRUCTION_H
-
-# include <stdlib.h>
-# include <stdio.h>
 
 # include "libft.h"
 

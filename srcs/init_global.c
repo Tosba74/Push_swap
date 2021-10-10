@@ -6,32 +6,20 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 00:45:31 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 20:56:05 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/09 22:05:23 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// static int	is_already_sort(t_global *g)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (g->array[i] == g->sorted[i] && i < g->size)
-// 		i++;
-// 	if (g->array[i] != g->sorted[i])
-// 		return (1);
-// 	return (0);
-// }
-
-static int	find_index_sort(int *array, int needed)
+static int	find_index_sort(int *array, int needed, int n)
 {
 	int	i;
 
 	i = 0;
-	if (!array)
+	if (n == 0)
 		return (-1);
-	while (array[i])
+	while (i < n)
 	{
 		if (array[i] == needed)
 			return (i);
@@ -53,7 +41,7 @@ void	init_maillon(t_global *g)
 	{
 		content = wrmalloc(sizeof(t_info) * 1);
 		content->nb = g->array[i];
-		pos = find_index_sort(g->sorted, g->array[i]);
+		pos = find_index_sort(g->sorted, g->array[i], g->size);
 		if (0 < pos && pos > 2147483647)
 			ft_err("Sort: ", 4);
 		else
@@ -61,7 +49,7 @@ void	init_maillon(t_global *g)
 		new = ft_lstnew(content);
 		ft_lstadd_back(&g->a, new);
 	}
-	g->b = ft_lstnew(NULL);
+	g->b = NULL;
 }
 
 void	init_global(int ac, char **av, t_global *g)

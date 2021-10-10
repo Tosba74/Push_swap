@@ -6,7 +6,7 @@
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:06:57 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 12:06:56 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/10 16:11:51 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static const char	*msg_err(int err)
 
 void	ft_err(char *s, int err)
 {
-	ft_putstr_fd("Error:\n", STDERR_FILENO);
+	ft_putstr_fd("\033[31mError:\033[0m\n", STDERR_FILENO);
 	ft_putstr_fd(s, STDERR_FILENO);
 	ft_putstr_fd((char *)msg_err(err), STDERR_FILENO);
 	wrdestroy();

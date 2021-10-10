@@ -6,7 +6,7 @@
 #    By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 23:19:50 by bmangin           #+#    #+#              #
-#    Updated: 2021/09/28 15:39:13 by bmangin          ###   ########lyon.fr    #
+#    Updated: 2021/09/28 15:39:13 bmangin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,18 +21,25 @@ PATH_I		:= includes
 PATH_S		:= srcs
 PATH_B		:= .bin
 
-VPATH	= ${PATH_I} ${PATH_S} ${PATH_B} ${PATH_L}
+VPATH		= ${PATH_I} ${PATH_S} ${PATH_B} ${PATH_L}
 
 FILES		= main.c get_array.c init_global.c tools.c \
 			tools_instr.c push.c swap.c rotate.c reverse.c \
-			tools_sort.c sort.c sort_small.c sort_five.c \
+			tools_sort.c big_sort.c small_sort.c search_num.c \
 			test.c
 
-SRCS		= ${addprefix ${PATH_S}/, ${FILES}}
-OBJS		= ${FILES:.c=.o}
-BIN			= ${addprefix ${PATH_B}/, ${OBJS}}
+C_FILES		= get_array.c init_global.c tools_sort.c tools.c \
+			tools_instr.c checker.c push.c swap.c rotate.c \
+			reverse.c
 
-H_FILES		= push_swap.h instruction.h
+SRCS		= ${addprefix ${PATH_S}/, ${FILES}}
+C_SRCS		= ${addprefix ${PATH_S}/, ${C_FILES}}
+OBJS		= ${FILES:.c=.o}
+C_OBJS		= ${C_FILES:.c=.o}
+BIN			= ${addprefix ${PATH_B}/, ${OBJS}}
+C_BIN		= ${addprefix ${PATH_B}/, ${C_OBJS}}
+
+H_FILES		= push_swap.h instruction.h checker.h
 HEADER		= ${addprefix ${PATH_I}/, ${H_FILES}}
 
 LIBFT_NAME	:= ${PATH_L}.a
@@ -45,7 +52,7 @@ LIBFT		= ${addprefix ${PATH_L}/, ${LIBFT_NAME}}
 CC			:= clang
 FLAGS		:= -Wall -Wextra -Werror
 CCF			:= ${CC} ${FLAGS} -glldb
-CFS			:= ${CCF} -fsanitize=address
+CFFS		:= ${CCF} -fsanitize=address
 INC			:= -I${PATH_I} -I${PATH_L}/${PATH_I}
 FLIB		:= -L${PATH_L}
 LFT			:= -lft
@@ -68,11 +75,13 @@ lib:		crea_b
 ${PATH_B}/%.o:	${PATH_S}/%.c ${HEADER}
 		${CCF} ${INC} -c $< -o $@
 
-${NAME}:	lib ${BIN} ${HEADER}
+${NAME}:	lib ${BIN} ${C_BIN} ${HEADER}
 		${CCF} ${FLIB} ${BIN} -o $@ ${LFT}
+		${CCF} ${FLIB} ${C_BIN} -o checker ${LFT}
 
-fs:			lib ${BIN} ${HEADER}
-		${CFS} ${FLIB} ${BIN} -o ${NAME} ${LFT}
+fs:			lib ${BIN} ${C_BIN} ${HEADER}
+		${CFFS} ${FLIB} ${BIN} -o ${NAME} ${LFT}
+		${CFFS} ${FLIB} ${C_BIN} -o checker ${LFT}
 
 crea_b :
 	${shell mkdir -p ${PATH_B}}
@@ -83,14 +92,14 @@ clean:
 
 fclean: clean
 	$(MAKE) ./$(PATH_L)/ fclean
-	$(RM) $(NAME) $(NAME).dSYM
+	$(RM) $(NAME) $(NAME).dSYM checker checker.dSYM
 
 re: fclean all
 
 seg: fclean fs
 
 norm:
-	${NORM} ${SRCS} ${HEADER}
+	${NORM} ${SRCS} ${C_SRCS} ${HEADER}
 	$(MAKE) ./$(PATH_L) norm
 	
 .PHONY:		all lib crea_b bonus clean fclean re seg norm

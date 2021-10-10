@@ -1,40 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_five.c                                        :+:      :+:    :+:   */
+/*   search_num.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 18:33:53 by bmangin           #+#    #+#             */
-/*   Updated: 2021/10/07 12:08:45 by bmangin          ###   ########lyon.fr   */
+/*   Updated: 2021/10/09 20:44:39 by bmangin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
-static int	search_smaller(t_global *g, int *i)
+static int	search_bigger(t_global *g, int *i)
 {
 	int		ret;
 	int		tmp;
 	t_list	*cpy;
 
 	ret = 0;
-	cpy = g->a;
-	tmp = g->size;
+	tmp = 0;
+	cpy = g->b;
 	while (cpy)
 	{
-		if (content_cmp(&cpy, tmp) < 0)
+		if (((t_info *)(cpy->content))->pos > tmp)
 		{
 			ret = *i;
-			tmp = get_position(&cpy);
+			tmp = ((t_info *)(cpy->content))->pos;
 		}
-		cpy = cpy->next;
 		(*i)++;
+		if (!cpy->next)
+			break ;
+		cpy = cpy->next;
 	}
 	return (ret);
 }
-*/
+
+void	push_bigger(t_global *g)
+{
+	int		size;
+	int		pos;
+
+	size = 0;
+	pos = search_bigger(g, &size);
+	if (pos != 0)
+	{
+		if (pos <= size / 2)
+			while (pos-- != 0)
+				rotate_b(g);
+		else if (pos > size / 2)
+		{
+			size -= pos;
+			while (size-- != 0)
+				rev_rotate_b(g);
+		}
+	}
+	push_a(g);
+}
+
 static int	search_smaller(t_global *g, int *i)
 {
 	int		ret;
@@ -59,36 +82,24 @@ static int	search_smaller(t_global *g, int *i)
 	return (ret);
 }
 
-static void	push_two_smaller(t_global *g)
+void	push_smaller(t_global *g)
 {
-	int	i;
-	int	pos;
+	int		size;
+	int		pos;
 
-	i = 0;
-	pos = search_smaller(g, &i);
+	size = 0;
+	pos = search_smaller(g, &size);
 	if (pos != 0)
 	{
-		if (pos <= i / 2)
+		if (pos <= size / 2)
 			while (pos-- != 0)
 				rotate_a(g);
-		else if (pos > i / 2)
+		else if (pos > size / 2)
 		{
-			i -= pos;
-			while (--pos != 0)
+			size -= pos;
+			while (size-- != 0)
 				rev_rotate_a(g);
 		}
 	}
 	push_b(g);
-}
-
-void	sort_five(t_global *g)
-{
-	push_two_smaller(g);
-	push_two_smaller(g);
-	if (ft_lstsize(g->a) == 3)
-		sort_three(g, 1);
-	if (ft_lstsize(g->a) == 2)
-		sort_two(g, 1);
-	push_a(g);
-	push_a(g);
 }

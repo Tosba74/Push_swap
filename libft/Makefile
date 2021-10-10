@@ -6,7 +6,7 @@
 #    By: bmangin <bmangin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 12:45:19 by bmangin           #+#    #+#              #
-#    Updated: 2021/09/06 18:40:25 by bmangin          ###   ########lyon.fr    #
+#    Updated: 2021/10/10 15:17:11 by bmangin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ FILES	= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 		ft_lstnew.c ft_lstsize.c ft_strtolower.c ft_putbytes.c ft_uswap.c \
 		get_next_line.c ft_strsjoin.c ft_strslen.c ft_free_all.c ft_atoi_ov.c \
 		wrdestroy.c get_color.c check_extention.c select_env_path.c	ft_vswap.c \
-		ft_bubble_sort.c ft_check_doublon.c 
+		ft_bubble_sort.c ft_check_doublon.c
 		 
 SRCS	= ${addprefix ${PATH_S}/, ${FILES}}
 OBJS	= ${FILES:.c=.o}
